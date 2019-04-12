@@ -1,0 +1,8 @@
+{
+    "snare": {
+        "src": "./assets/snr.mp3"
+    },
+    "kick": {
+        "src": "./assets/kick.mp3"
+    }
+}
