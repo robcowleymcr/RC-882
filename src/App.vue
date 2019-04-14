@@ -15,7 +15,7 @@
 import { mapState } from 'vuex'
 import Lane from './components/Lane.vue'
 import { setTimeout } from 'timers'
-import json from './kit.json'
+// import axios from 'axios'
 
 export default {
   name: 'app',
@@ -58,7 +58,17 @@ export default {
   },
   mounted () {
     // console.log(api.loadSound('./assets/snr.mp3'))
-    this.$store.dispatch('initJsonObject', json)
+    // this.$store.dispatch('initJsonObject', json)
+    // this.$store.dispatch('loadSound')
+  },
+  created () {
+    this.$store.dispatch('loadSound')
+    // axios.get('snare.wav', {
+    //   responseType: 'arraybuffer',
+    //   headers: {
+    //     'Accept': 'audio/wav'
+    //   }
+    // })
   }
 }
 </script>

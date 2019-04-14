@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import api from './assets/scripts/api'
 
 Vue.use(Vuex)
 
@@ -52,6 +53,11 @@ export default new Vuex.Store({
     },
     initJsonObject ({ context }, payload) {
       this.commit('initJsonObject', payload)
+    },
+    async loadSound ({ context }) {
+      await api.loadSounds()
+      // console.log(response)
+      // this.commit('loadSounds', response)
     }
   }
 })
