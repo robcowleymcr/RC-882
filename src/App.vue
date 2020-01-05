@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <lane
-      v-for="(value, key) in grid"
-      v-bind:name="key"
-      v-bind:object="value"
-      v-bind:key="key"
+      v-for="(value, index) in grid"
+      :name="value.name"
+      :object="value"
+      :key="index"
+      :index="index"
     ></lane>
     <div @click="playClickHandler()">Play - {{ sequencePlaying }}</div>
     <div @click="stopClickHandler()">Stop - {{ stopSequence }}</div>
@@ -15,7 +16,7 @@
 import { mapState } from 'vuex'
 import Lane from './components/Lane.vue'
 import { setTimeout } from 'timers'
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -57,19 +58,9 @@ export default {
     }
   },
   mounted () {
-    // console.log(api.loadSound('./assets/snr.mp3'))
-    // this.$store.dispatch('initJsonObject', json)
-    // this.$store.dispatch('loadSound')
+    this.$store.dispatch('loadSounds')
   },
-  created () {
-    this.$store.dispatch('loadSound')
-    // axios.get('snare.wav', {
-    //   responseType: 'arraybuffer',
-    //   headers: {
-    //     'Accept': 'audio/wav'
-    //   }
-    // })
-  }
+  created () {}
 }
 </script>
 

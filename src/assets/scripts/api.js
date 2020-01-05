@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+const getAudioContext = () => {
+  let AudioContext = window.AudioContext || window.webkitAudioContext
+  const audioContent = new AudioContext()
+  return audioContent
+}
+
 export default {
   array: [
     {
@@ -15,23 +21,23 @@ export default {
       src: 'wav/hat.wav'
     }
   ],
-  async loadSound (url, index) {
-    try {
-      const arrayBuffer = await axios.get(url, {
+  async loadSounds () {
+    const audioContext = getAudioContext()
+    let array = this.array
+
+    array.forEach(async obj => {
+      await axios.get(obj.src, {
         responseType: 'arraybuffer',
         headers: {
           'Accept': 'audio/wav'
         }
       })
-      this.array[index].buffer = arrayBuffer.data
-    } catch (error) {
-      console.log(error)
-    }
-  },
-  loadSounds () {
-    this.array.forEach((obj, index) => {
-      this.loadSound(obj.src, index)
+        .then(async response => {
+          const audioBuffer = await audioContext.decodeAudioData(response.data)
+          obj.source = audioContext.createBufferSource()
+          obj.source.buffer = audioBuffer
+          obj.source.connect(audioContext.destination)
+        })
     })
-    console.log(this.array)
   }
 }

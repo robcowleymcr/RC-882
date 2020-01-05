@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Step',
@@ -20,19 +20,20 @@ export default {
   },
   props: {
     number: Number,
-    laneName: String
+    laneName: String,
+    laneNumber: Number
   },
   computed: {
     ...mapState({
-      counter: state => state.counter
+      counter: state => state.counter,
+      grid: state => state.grid
     }),
-    ...mapGetters(['getStepValue']),
     isCurrentStep: function () {
       return (this.counter + 1) === this.number
     },
     classObject: function () {
       return {
-        active: this.getStepValue(this.laneName, this.number),
+        active: this.getStepValue(this.laneNumber, this.number),
         current: this.isCurrentStep
       }
     }
@@ -40,7 +41,10 @@ export default {
   methods: {
     ...mapActions(['toggleStep']),
     clickHandler: function (event) {
-      this.$store.dispatch('toggleStep', { stepNumber: this.number, lane: this.laneName })
+      this.$store.dispatch('toggleStep', { stepNumber: this.number, lane: this.laneNumber })
+    },
+    getStepValue (laneNumber, index) {
+      return this.grid[laneNumber][index - 1]
     }
   }
 }

@@ -3,9 +3,10 @@
     <div class="lane__name">{{ name }}</div>
     <step
       v-for="(step, index) in array"
-      v-bind:key="index"
-      v-bind:number="index + 1"
-      v-bind:lane-name="name"
+      :key="index"
+      :number="index + 1"
+      :lane-name="name"
+      :lane-number="$attrs.index"
     ></step>
   </div>
 </template>

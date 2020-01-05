@@ -6,14 +6,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    grid: {
-      snare: {
+    grid: [
+      {
         name: 'Snare',
-        sequence: Array(16)
+        sequence: Array(16),
+        src: 'wav/snare.wav'
+      },
+      {
+        name: 'Kick',
+        sequence: Array(16),
+        src: 'wav/snare.wav'
       }
-    },
+    ],
     json: Object,
     counter: 0,
+    sequenceLength: 16,
     playSequence: false,
     stepInterval: 200
   },
@@ -36,9 +43,6 @@ export default new Vuex.Store({
     },
     togglePlaySequence (state) {
       state.playSequence = !state.playSequence
-    },
-    initJsonObject (state, obj) {
-      console.log(obj)
     }
   },
   actions: {
@@ -51,13 +55,8 @@ export default new Vuex.Store({
     playSequence ({ context }) {
       this.commit('togglePlaySequence')
     },
-    initJsonObject ({ context }, payload) {
-      this.commit('initJsonObject', payload)
-    },
-    async loadSound ({ context }) {
-      await api.loadSounds()
-      // console.log(response)
-      // this.commit('loadSounds', response)
+    async loadSounds ({ context }) {
+      this.commit('initJsonObject')
     }
   }
 })
