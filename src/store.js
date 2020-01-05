@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from './assets/scripts/api'
 
 Vue.use(Vuex)
 
@@ -26,8 +25,6 @@ export default new Vuex.Store({
   },
   mutations: {
     toggleStep (state, obj) {
-      // console.log(obj)
-      // console.log(state.grid[obj.lane].sequence[obj.stepNumber])
       state.grid[obj.lane].sequence[obj.stepNumber - 1] = !state.grid[obj.lane].sequence[obj.stepNumber - 1]
       state.grid = JSON.parse(JSON.stringify(state.grid))
     },
