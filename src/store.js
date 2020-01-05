@@ -26,7 +26,9 @@ export default new Vuex.Store({
   },
   mutations: {
     toggleStep (state, obj) {
-      state.grid[obj.lane][obj.stepNumber - 1] = !state.grid[obj.lane][obj.stepNumber - 1]
+      // console.log(obj)
+      // console.log(state.grid[obj.lane].sequence[obj.stepNumber])
+      state.grid[obj.lane].sequence[obj.stepNumber - 1] = !state.grid[obj.lane].sequence[obj.stepNumber - 1]
       state.grid = JSON.parse(JSON.stringify(state.grid))
     },
     incrementCounter (state) {

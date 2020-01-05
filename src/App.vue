@@ -43,11 +43,10 @@ export default {
   },
   methods: {
     playClickHandler: function () {
-      // if (!this.sequencePlaying) {
-      //   this.sequencePlaying = true
-      //   this.timeoutIterator()
-      // }
-      this.grid[1].source.start()
+      if (!this.sequencePlaying) {
+        this.sequencePlaying = true
+        this.timeoutIterator()
+      }
     },
     stopClickHandler: function () {
       if (this.sequencePlaying) {
@@ -67,7 +66,7 @@ export default {
   async mounted () {
     const audioContext = getAudioContext()
     this.grid.forEach(async obj => {
-      let buffer = await axios.get(obj.url, {
+      await axios.get(obj.url, {
         responseType: 'arraybuffer'
       }).then(async response => {
         const audioBuffer = await audioContext.decodeAudioData(response.data)

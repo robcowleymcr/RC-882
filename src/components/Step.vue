@@ -33,7 +33,7 @@ export default {
     },
     classObject: function () {
       return {
-        active: this.getStepValue(this.laneNumber, this.number),
+        active: this.grid[this.laneNumber].sequence[this.number - 1],
         current: this.isCurrentStep
       }
     }
@@ -44,7 +44,8 @@ export default {
       this.$store.dispatch('toggleStep', { stepNumber: this.number, lane: this.laneNumber })
     },
     getStepValue (laneNumber, index) {
-      return this.grid[laneNumber][index - 1]
+      // return this.grid[laneNumber].sequence[index - 1]
+      console.log(this.grid)
     }
   }
 }
