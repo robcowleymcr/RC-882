@@ -21,23 +21,7 @@ export default {
       src: 'wav/hat.wav'
     }
   ],
-  async loadSounds () {
-    const audioContext = getAudioContext()
-    let array = this.array
+  async loadSound () {
 
-    array.forEach(async obj => {
-      await axios.get(obj.src, {
-        responseType: 'arraybuffer',
-        headers: {
-          'Accept': 'audio/wav'
-        }
-      })
-        .then(async response => {
-          const audioBuffer = await audioContext.decodeAudioData(response.data)
-          obj.source = audioContext.createBufferSource()
-          obj.source.buffer = audioBuffer
-          obj.source.connect(audioContext.destination)
-        })
-    })
   }
 }

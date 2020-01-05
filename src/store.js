@@ -10,12 +10,12 @@ export default new Vuex.Store({
       {
         name: 'Snare',
         sequence: Array(16),
-        src: 'wav/snare.wav'
+        url: 'wav/snare.wav'
       },
       {
         name: 'Kick',
         sequence: Array(16),
-        src: 'wav/snare.wav'
+        url: 'wav/kick.wav'
       }
     ],
     json: Object,
@@ -23,11 +23,6 @@ export default new Vuex.Store({
     sequenceLength: 16,
     playSequence: false,
     stepInterval: 200
-  },
-  getters: {
-    getStepValue: (state) => (lane, number) => {
-      return state.grid[lane][number - 1]
-    }
   },
   mutations: {
     toggleStep (state, obj) {

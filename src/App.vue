@@ -18,6 +18,12 @@ import Lane from './components/Lane.vue'
 import { setTimeout } from 'timers'
 import axios from 'axios'
 
+const getAudioContext = () => {
+  let AudioContext = window.AudioContext || window.webkitAudioContext
+  const audioContent = new AudioContext()
+  return audioContent
+}
+
 export default {
   name: 'app',
   data: function () {
@@ -37,10 +43,11 @@ export default {
   },
   methods: {
     playClickHandler: function () {
-      if (!this.sequencePlaying) {
-        this.sequencePlaying = true
-        this.timeoutIterator()
-      }
+      // if (!this.sequencePlaying) {
+      //   this.sequencePlaying = true
+      //   this.timeoutIterator()
+      // }
+      this.grid[1].source.start()
     },
     stopClickHandler: function () {
       if (this.sequencePlaying) {
@@ -57,10 +64,19 @@ export default {
       }
     }
   },
-  mounted () {
-    this.$store.dispatch('loadSounds')
-  },
-  created () {}
+  async mounted () {
+    const audioContext = getAudioContext()
+    this.grid.forEach(async obj => {
+      let buffer = await axios.get(obj.url, {
+        responseType: 'arraybuffer'
+      }).then(async response => {
+        const audioBuffer = await audioContext.decodeAudioData(response.data)
+        obj.source = audioContext.createBufferSource()
+        obj.source.buffer = audioBuffer
+        obj.source.connect(audioContext.destination)
+      })
+    })
+  }
 }
 </script>
 
