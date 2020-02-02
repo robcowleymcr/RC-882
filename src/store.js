@@ -9,12 +9,17 @@ export default new Vuex.Store({
       {
         name: 'Snare',
         sequence: Array(16),
-        url: 'wav/snare.wav'
+        url: './wav/snare.wav'
       },
       {
         name: 'Kick',
         sequence: Array(16),
-        url: 'wav/kick.wav'
+        url: './wav/kick.wav'
+      },
+      {
+        name: 'Hat',
+        sequence: Array(16),
+        url: './wav/hat.wav'
       }
     ],
     json: Object,

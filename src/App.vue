@@ -16,7 +16,8 @@
 import { mapState } from 'vuex'
 import Lane from './components/Lane.vue'
 import { setTimeout } from 'timers'
-import axios from 'axios'
+import Buffer from './assets/buffer.js'
+import Sound from './assets/sound.js'
 
 const getAudioContext = () => {
   let AudioContext = window.AudioContext || window.webkitAudioContext
@@ -39,7 +40,12 @@ export default {
   computed: {
     ...mapState({
       grid: state => state.grid
-    })
+    }),
+    soundUrls () {
+      return this.grid.map(sound => {
+        return sound.url
+      })
+    }
   },
   methods: {
     playClickHandler: function () {
@@ -64,17 +70,9 @@ export default {
     }
   },
   async mounted () {
-    const audioContext = getAudioContext()
-    this.grid.forEach(async obj => {
-      await axios.get(obj.url, {
-        responseType: 'arraybuffer'
-      }).then(async response => {
-        const audioBuffer = await audioContext.decodeAudioData(response.data)
-        obj.source = audioContext.createBufferSource()
-        obj.source.buffer = audioBuffer
-        obj.source.connect(audioContext.destination)
-      })
-    })
+    const context = getAudioContext()
+    let buffer = new Buffer(context, this.soundUrls)
+    buffer.loadAll()
   }
 }
 </script>
