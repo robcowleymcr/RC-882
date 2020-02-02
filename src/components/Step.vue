@@ -36,11 +36,26 @@ export default {
         active: this.grid[this.laneNumber].sequence[this.number - 1],
         current: this.isCurrentStep
       }
+    },
+    playSound: function () {
+      return this.classObject.active && this.classObject.current
+    }
+  },
+  watch: {
+    playSound: function () {
+      if (this.playSound) {
+        console.log(this.laneName)
+      }
     }
   },
   methods: {
     ...mapActions(['toggleStep']),
     clickHandler: function (event) {
+      if (!this.active) {
+        this.active = true
+      } else {
+        this.active = false
+      }
       this.$store.dispatch('toggleStep', { stepNumber: this.number, lane: this.laneNumber })
     }
   }

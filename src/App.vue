@@ -17,7 +17,7 @@ import { mapState } from 'vuex'
 import Lane from './components/Lane.vue'
 import { setTimeout } from 'timers'
 import Buffer from './assets/buffer.js'
-import Sound from './assets/sound.js'
+// import Sound from './assets/sound.js'
 
 const getAudioContext = () => {
   let AudioContext = window.AudioContext || window.webkitAudioContext
@@ -30,8 +30,7 @@ export default {
   data: function () {
     return {
       stopSequence: false,
-      sequencePlaying: false,
-      audioBuffer: null
+      sequencePlaying: false
     }
   },
   components: {
@@ -72,7 +71,7 @@ export default {
   async mounted () {
     const context = getAudioContext()
     let buffer = new Buffer(context, this.soundUrls)
-    buffer.loadAll()
+    await buffer.loadAll()
   }
 }
 </script>

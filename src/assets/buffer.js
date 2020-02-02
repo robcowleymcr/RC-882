@@ -30,7 +30,6 @@ export default class Buffer {
 
   loaded () {
     // what happens when all the files are loaded
-    console.log(this.buffer)
   }
 
   getSoundByIndex (index) {
