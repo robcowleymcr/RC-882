@@ -7,6 +7,7 @@
       :number="index + 1"
       :lane-name="name"
       :lane-number="$attrs.index"
+      @play="playSnd"
     ></step>
   </div>
 </template>
@@ -26,6 +27,11 @@ export default {
     }),
     array: function () {
       return this.grid[this.$vnode.key].sequence
+    }
+  },
+  methods: {
+    playSnd (index) {
+      this.$emit('play', index)
     }
   },
   components: {

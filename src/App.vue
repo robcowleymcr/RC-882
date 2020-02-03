@@ -6,6 +6,7 @@
       :object="value"
       :key="index"
       :index="index"
+      @play="playSnd"
     ></lane>
     <div @click="playClickHandler()">Play - {{ sequencePlaying }}</div>
     <div @click="stopClickHandler()">Stop - {{ stopSequence }}</div>
@@ -17,7 +18,7 @@ import { mapState } from 'vuex'
 import Lane from './components/Lane.vue'
 import { setTimeout } from 'timers'
 import Buffer from './assets/buffer.js'
-// import Sound from './assets/sound.js'
+import Sound from './assets/sound.js'
 
 const getAudioContext = () => {
   let AudioContext = window.AudioContext || window.webkitAudioContext
@@ -30,7 +31,9 @@ export default {
   data: function () {
     return {
       stopSequence: false,
-      sequencePlaying: false
+      sequencePlaying: false,
+      context: null,
+      buffer: null
     }
   },
   components: {
@@ -66,12 +69,17 @@ export default {
         this.stopSequence = false
         this.sequencePlaying = false
       }
+    },
+    playSnd (index) {
+      // console.log(this.buffer.getSoundByIndex(index))
+      let sound = new Sound(this.context, this.buffer.getSoundByIndex(index))
+      sound.play()
     }
   },
   async mounted () {
-    const context = getAudioContext()
-    let buffer = new Buffer(context, this.soundUrls)
-    await buffer.loadAll()
+    this.context = getAudioContext()
+    this.buffer = new Buffer(this.context, this.soundUrls)
+    this.buffer.loadAll()
   }
 }
 </script>

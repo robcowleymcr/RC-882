@@ -13,7 +13,7 @@ export default class Sound {
   }
 
   play () {
-    this.setup()
+    this.init()
     this.source.start(this.context.currentTime)
   }
 

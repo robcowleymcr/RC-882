@@ -44,7 +44,7 @@ export default {
   watch: {
     playSound: function () {
       if (this.playSound) {
-        console.log(this.laneName)
+        this.$emit('play', this.laneNumber)
       }
     }
   },
