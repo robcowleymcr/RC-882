@@ -64,14 +64,13 @@ export default {
     timeoutIterator: function () {
       if (this.sequencePlaying && !this.stopSequence) {
         this.$store.dispatch('incrementCounter')
-        setTimeout(this.timeoutIterator, 500)
+        setTimeout(this.timeoutIterator, 120)
       } else {
         this.stopSequence = false
         this.sequencePlaying = false
       }
     },
     playSnd (index) {
-      // console.log(this.buffer.getSoundByIndex(index))
       let sound = new Sound(this.context, this.buffer.getSoundByIndex(index))
       sound.play()
     }
@@ -79,7 +78,7 @@ export default {
   async mounted () {
     this.context = getAudioContext()
     this.buffer = new Buffer(this.context, this.soundUrls)
-    this.buffer.loadAll()
+    await this.buffer.loadAll()
   }
 }
 </script>

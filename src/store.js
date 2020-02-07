@@ -8,17 +8,17 @@ export default new Vuex.Store({
     grid: [
       {
         name: 'Snare',
-        sequence: Array(16),
+        sequence: [null, null, null, null, true, null, null, null, null, null, null, null, true, null, null, null],
         url: './wav/snare.wav'
       },
       {
         name: 'Kick',
-        sequence: Array(16),
+        sequence: [true, null, null, null, null, null, true, null, null, null, true, null, null, true, null, null],
         url: './wav/kick.wav'
       },
       {
         name: 'Hat',
-        sequence: Array(16),
+        sequence: [true, null, true, true, true, null, true, true, true, null, true, true, true, true, true, true],
         url: './wav/hat.wav'
       }
     ],
