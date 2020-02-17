@@ -47,6 +47,7 @@ export default {
 
   &__name {
     width: 75px;
+    line-height: 44px;
   }
 }
 </style>

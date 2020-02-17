@@ -8,9 +8,14 @@
       :index="index"
       @play="playSnd"
     ></lane>
-    <div @click="playClickHandler()">Play</div>
-    <div @click="stopClickHandler()">Stop</div>
-    <div @click="resetClickHandler()">Reset</div>
+    <div class="buttons">
+      <div
+        class="btn__primary" @click="playClickHandler()"
+        :class="{ active: sequencePlaying }"
+      >Play</div>
+      <div class="btn__primary" @click="stopClickHandler()">Stop</div>
+      <div class="btn__primary" @click="resetClickHandler()">Reset</div>
+    </div>
   </div>
 </template>
 
@@ -93,6 +98,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #FCFCFC;
+  display: inline-block;
+  border: 1px solid #7F7C7F;
+  padding: 2rem;
+  border-radius: 10px;
 }
 
 .grid__container {
@@ -108,6 +117,26 @@ export default {
   }
   &.grid__item--counter {
     border-color: red;
+  }
+}
+
+.buttons {
+  justify-content: center;
+  display: flex;
+}
+
+.btn__primary{
+  background-color: #BDC3C3;
+  border-radius: 3px;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  width: 42px;
+  text-align: center;
+  font-weight: 500;
+
+  &.active {
+    background-color: #373236;
+    color: #78C091;
   }
 }
 </style>
