@@ -5,7 +5,7 @@ export default class Buffer {
     this.buffer = []
   }
 
-  loadSound (url, index) {
+  async loadSound (url, index) {
     let request = new XMLHttpRequest()
     request.open('get', url, true)
     request.responseType = 'arraybuffer'
@@ -13,23 +13,15 @@ export default class Buffer {
     request.onload = function () {
       thisBuffer.context.decodeAudioData(request.response, function (buffer) {
         thisBuffer.buffer[index] = buffer
-        // updateProgress(thisBuffer.urls.length)
-        if (index === thisBuffer.urls.length - 1) {
-          thisBuffer.loaded()
-        }
       })
     }
     request.send()
   };
 
-  loadAll () {
+  async loadAll () {
     this.urls.forEach((url, index) => {
       this.loadSound(url, index)
     })
-  }
-
-  loaded () {
-    // what happens when all the files are loaded
   }
 
   getSoundByIndex (index) {
