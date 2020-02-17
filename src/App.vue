@@ -8,8 +8,9 @@
       :index="index"
       @play="playSnd"
     ></lane>
-    <div @click="playClickHandler()">Play - {{ sequencePlaying }}</div>
-    <div @click="stopClickHandler()">Stop - {{ stopSequence }}</div>
+    <div @click="playClickHandler()">Play</div>
+    <div @click="stopClickHandler()">Stop</div>
+    <div @click="resetClickHandler()">Reset</div>
   </div>
 </template>
 
@@ -60,6 +61,9 @@ export default {
       if (this.sequencePlaying) {
         this.stopSequence = true
       }
+    },
+    resetClickHandler: function () {
+      this.$store.dispatch('resetSequence')
     },
     timeoutIterator: function () {
       if (this.sequencePlaying && !this.stopSequence) {

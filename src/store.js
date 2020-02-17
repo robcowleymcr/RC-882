@@ -8,17 +8,17 @@ export default new Vuex.Store({
     grid: [
       {
         name: 'Snare',
-        sequence: [null, null, false, null, true, null, null, null, null, null, null, null, true, null, null, null],
+        sequence: [null, null, false, null, true, null, null, null, null, false, null, null, true, null, null, null],
         url: './wav/snare.wav'
       },
       {
         name: 'Kick',
-        sequence: [true, null, null, null, null, null, true, null, null, null, false, null, null, false, null, null],
+        sequence: [true, null, null, null, null, null, true, null, false, null, false, false, null, false, null, null],
         url: './wav/kick.wav'
       },
       {
         name: 'Hat',
-        sequence: [true, null, true, true, true, null, true, true, true, null, true, true, true, false, true, true],
+        sequence: [true, null, true, false, true, null, true, false, true, null, true, false, true, false, true, true],
         url: './wav/hat.wav'
       }
     ],
@@ -42,6 +42,11 @@ export default new Vuex.Store({
     },
     togglePlaySequence (state) {
       state.playSequence = !state.playSequence
+    },
+    resetSequence (state) {
+      state.grid.forEach(obj => {
+        obj.sequence = Array(16)
+      })
     }
   },
   actions: {
@@ -56,6 +61,9 @@ export default new Vuex.Store({
     },
     async loadSounds ({ context }) {
       this.commit('initJsonObject')
+    },
+    resetSequence ({ context }) {
+      this.commit('resetSequence')
     }
   }
 })
