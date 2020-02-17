@@ -63,7 +63,9 @@ export default {
       }
     },
     stopClickHandler: function () {
-      if (this.sequencePlaying) {
+      if (!this.sequencePlaying && !this.stopSequence) {
+        this.$store.dispatch('resetCounter')
+      } else if (this.sequencePlaying) {
         this.stopSequence = true
       }
     },

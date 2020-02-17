@@ -47,6 +47,9 @@ export default new Vuex.Store({
       state.grid.forEach(obj => {
         obj.sequence = Array(16)
       })
+    },
+    resetCounter (state) {
+      state.counter = 0
     }
   },
   actions: {
@@ -64,6 +67,9 @@ export default new Vuex.Store({
     },
     resetSequence ({ context }) {
       this.commit('resetSequence')
+    },
+    resetCounter ({ context }) {
+      this.commit('resetCounter')
     }
   }
 })
